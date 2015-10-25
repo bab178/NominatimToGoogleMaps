@@ -20,22 +20,21 @@ function initMap() {
 		info.push(document.getElementById('postalcode').value);
 		
 		var nominatimCall = "https://nominatim.openstreetmap.org/search/";
-		var endCall = "?format=xml&limit=1&polygon_kml=1";
+		var endCall = "?format=xml&limit=1&polygon_kml=1&email=bab178@txstate.edu";
 		
 		//Create nominatim URL
 		for(var i = 0; i < info.length; i++)
 			if(info[i] !== '')
 			{
-				var result = info[i];
-				//Change Spaces to %20
+				//Change spaces to %20
 				for(var j = 0; j < info[i].length; j++)
 					if(info[i][j] === ' ')
-						result = info[i].slice(0, j) + "%20" + info[i].slice(j+1,info[i].length);
+						info[i] = info[i].slice(0, j) + "%20" + info[i].slice(j+1,info[i].length);
 				//Add to nominatim URL
 				if(check === 0)
-					nominatimCall = nominatimCall.concat(result);
+					nominatimCall = nominatimCall.concat(info[i]);
 				else
-					nominatimCall = nominatimCall.concat('%20'+result);
+					nominatimCall = nominatimCall.concat('%20'+info[i]);
 				
 				check = 1;	
 			}
@@ -47,7 +46,34 @@ function initMap() {
 		//Finish URL
 		nominatimCall = nominatimCall.concat(endCall);
 		
-		console.log(nominatimCall);
+		var coordinates;
+		
+		//https://stackoverflow.com/questions/6375461/get-html-code-using-javascript-with-a-url
+		function makeHttpObject() {
+		  try {return new XMLHttpRequest();}
+		  catch (error) {}
+		  try {return new ActiveXObject("Msxml2.XMLHTTP");}
+		  catch (error) {}
+		  try {return new ActiveXObject("Microsoft.XMLHTTP");}
+		  catch (error) {}
+
+		  throw new Error("Could not create HTTP request object.");
+		}
+		var request = makeHttpObject();
+		request.open("GET", nominatimCall, true);
+		request.send(null);
+		request.onreadystatechange = function() {
+			//HTML Request ready
+		  if (request.readyState == 4 && request.status==200)
+		  {
+			//Get coordinates
+			document.getElementById("coords").innerHTML=request.responseText;
+			coordinates = document.getElementsByTagName("coordinates");
+			document.getElementById("coords").innerHTML=$("coordinates").html();
+			
+		  }
+		};
+
 		var CityHightlight;
 		var paths = [
 		{lat: 30.337900999999999, lng: -97.938382899999993},{lat: 30.338747000000001, lng: -97.937982899999994},{lat: 30.339490999999999, lng: -97.938210900000001},{lat: 30.339936999999999, lng: -97.938373900000002},{lat: 30.340364000000001, lng: -97.938182900000001},{lat: 30.340962000000001, lng: -97.937990900000003},{lat: 30.341135000000001, lng: -97.937502899999998},
