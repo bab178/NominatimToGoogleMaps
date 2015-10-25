@@ -312,21 +312,12 @@ a:hover {
 	text-decoration: none;
 }
 
-#banner {
+#map {
+	border: 3px solid white; 
+	width:90%;
 	padding: 10px;
 	display: inline-block;
-	width: 100%;
-	height: 600px;
-}
-
-#banner #map-buttons {
-	padding-bottom:5px;
-}
-#banner #map {
-	border: 3px solid white; 
-	width:60%;
-	height:400px;
-	float:center;
+	height: 425px;
 }
 
 #tags {
@@ -340,14 +331,12 @@ a:hover {
 
 /* Search */
 #search input[type="text"]{ 
-	padding: 5px 5px 5px 5px;
+	padding: 5px;
 	height: 30px;
-	width: 130px;
+	width: 100%;
 }
-
-#searchTag {
-	width: 110px;
-	height: 30px;
+#search p{
+	font-size: 13px;
 }
 
 .btn {
@@ -357,7 +346,7 @@ a:hover {
   font-family: Arial;
   color: #000000;
   background: #b4c4cf;
-  padding: 5px 5px 5px 5px;
+  padding: 5px;
   text-decoration: none;
 }
 
@@ -368,12 +357,28 @@ a:hover {
 
 #coords{
 	height:200px;
-	width:40%;
 	border: 3px solid white; 
 	font-size:15px;
 	overflow:auto;
 }
 
 #results{
-	padding: 10px 10px 10px 10px;
+	padding: 10px;
+    width: 80%;
+    height: 225px;
+    margin: auto;
+    padding: 10px;
+}
+#search {
+	width: 30%;
+	float:left;
+    height: 225px;
+}
+
+#path {
+	width: 15%;
+	padding-right: 20px;
+    height: 240px;
+    width: 500px;
+    float: left;
 }
