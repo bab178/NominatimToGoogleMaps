@@ -6,10 +6,12 @@ function initMap() {
 		zoom: 1,
 		center: {lat: 0, lng: 0}
 	});
-	
+
 	//https://nominatim.openstreetmap.org/search/Austin%20TX%20?format=xml&addressdetails=1&limit=1&polygon_kml=1
 	
 	document.getElementById('genPoly').onclick = function genPoly() {
+		//Indicate Loading
+		document.getElementById("coords").innerHTML="<style=float:center><h1>Loading...</h1></style>";
 		var check = 0;
 		var info = [];
 		info.push(document.getElementById('street').value);
@@ -46,9 +48,8 @@ function initMap() {
 		//Finish URL
 		nominatimCall = nominatimCall.concat(endCall);
 		
-		var coordinates;
-		var paths = [];
-		var finalPath = [];
+		var coordinates, place;
+		var paths = [], finalPath = [];
 		
 		//https://stackoverflow.com/questions/6375461/get-html-code-using-javascript-with-a-url
 		function makeHttpObject() {
@@ -68,16 +69,24 @@ function initMap() {
 			//HTML Request ready
 		  if (request.readyState === 4 && request.status === 200)
 		  {
-			//Get coordinates from jQuery call
 			document.getElementById("coords").innerHTML=request.responseText;
 			if($("coordinates").html() === null)
 			{
 				document.getElementById("coords").innerHTML = "No results found.";
 				return;
 			}
+			//Get coordinates from jQuery call
 			coordinates = $("coordinates").html();
+			place = $("searchresults").html();
 			document.getElementById("coords").innerHTML=$("coordinates").html();
-
+			
+			//Get place name from searchresults
+			place = place.split("display_name=\"");
+			place = place[1].split("\" class");
+			place = place[0];
+			console.log(place);
+			document.getElementById("place").innerHTML='<p>'+place+'</p>';
+			
 			//Parse HTML into Google Maps LatLng Objects
 			paths = coordinates.split(" ");
 			for(var i = 0; i < paths.length; i++)

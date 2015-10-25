@@ -378,6 +378,7 @@ a:hover {
 #path {
 	width: 15%;
 	padding-right: 20px;
+	padding-bottom: 10px;
     height: 240px;
     width: 500px;
     float: left;
