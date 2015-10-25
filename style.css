@@ -35,12 +35,11 @@ h2 {
 
 h3 {
 	font-size: 1.6em;
-	padding-left: 85%;
 }
 
 p, ul, ol {
 	margin-top: 0;
-	line-height: 180%;
+
 }
 
 ul, ol {
@@ -365,4 +364,16 @@ a:hover {
 .btn:hover {
   background: #b1bcc2;
   text-decoration: none;
+}
+
+#coords{
+	height:200px;
+	width:40%;
+	border: 3px solid white; 
+	font-size:15px;
+	overflow:auto;
+}
+
+#results{
+	padding: 10px 10px 10px 10px;
 }
