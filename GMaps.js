@@ -98,6 +98,7 @@ function initMap() {
 			//DRAW THE POLYGON OR POLYLINE
 			var CityHightlight = new google.maps.Polygon({
 				paths: finalPath,
+                clickable:false,
 				strokeColor: 'red',
 				strokeOpacity: 1,
 				strokeWeight: 1,
@@ -105,14 +106,26 @@ function initMap() {
 				fillOpacity: 0
 			});
 			CityHightlight.setMap(map);
+            
+            if (!google.maps.Polygon.prototype.getBounds) {
+ 
+            google.maps.Polygon.prototype.getBounds=function(){
+                var bounds = new google.maps.LatLngBounds()
+                this.getPath().forEach(function(element,index){bounds.extend(element)})
+                return bounds
+            }
+             
+            }
+            
+            map.fitBounds(CityHightlight.getBounds());
 			
 			//clear HTML
 			document.getElementById("coords").innerHTML = "";
 			//Add to HTML
 			for(var i = 0; i < finalPath.length-1; i++)
-				document.getElementById("coords").innerHTML+=('<p>'+'new google.maps.LatLng'+finalPath[i]+',</p>');
+				document.getElementById("coords").innerHTML+=('<div>'+'new google.maps.LatLng'+finalPath[i]+',</div>');
 			//Remove last comma
-			document.getElementById("coords").innerHTML+=('<p>'+'new google.maps.LatLng'+finalPath[finalPath.length-1]+'</p>');
+			document.getElementById("coords").innerHTML+=('<div>'+'new google.maps.LatLng'+finalPath[finalPath.length-1]+'</div>');
 
 		  }
 		};
